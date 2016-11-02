@@ -1,10 +1,8 @@
 class Pygame < Formula
   desc "Set of Python modules designed for writing video games"
   homepage "http://pygame.org"
-  url "https://bitbucket.org/pygame/pygame",
-      :revision => "faa5879a7e6bfe10e4e5c79d04a3d2fb65d74a62",
-      :using => :hg
-  version "1.9.2a0"
+  url "https://bitbucket.org/pygame/pygame/get/1.9.2.tar.gz"
+  sha256 "0d8d1b04e345806e1fc0dc1b062bbb7c0841f8f120edcb1b9fe78257293b17ff"
   head "https://bitbucket.org/pygame/pygame", :using => :hg
 
   option "without-python", "Build without python2 support"
@@ -13,7 +11,6 @@ class Pygame < Formula
   depends_on "sdl_image"
   depends_on "sdl_mixer"
   depends_on "sdl_ttf"
-  depends_on "smpeg"
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "portmidi"
@@ -29,14 +26,12 @@ class Pygame < Formula
     sdl_ttf = Formula["sdl_ttf"].opt_prefix
     sdl_image = Formula["sdl_image"].opt_prefix
     sdl_mixer = Formula["sdl_mixer"].opt_prefix
-    smpeg = Formula["smpeg"].opt_prefix
     portmidi = Formula["portmidi"].opt_prefix
     inreplace "Setup" do |s|
       s.gsub!(/^SDL =.*$/, "SDL = -I#{sdl}/include/SDL -Ddarwin -lSDL")
       s.gsub!(/^FONT =.*$/, "FONT = -I#{sdl_ttf}/include/SDL -lSDL_ttf")
       s.gsub!(/^IMAGE =.*$/, "IMAGE = -I#{sdl_image}/include/SDL -lSDL_image")
       s.gsub!(/^MIXER =.*$/, "MIXER = -I#{sdl_mixer}/include/SDL -lSDL_mixer")
-      s.gsub!(/^SMPEG =.*$/, "SMPEG = -I#{smpeg}/include/smpeg2 -lsmpeg")
       s.gsub!(/^PNG =.*$/, "PNG = -lpng")
       s.gsub!(/^JPEG =.*$/, "JPEG = -ljpeg")
       s.gsub!(/^PORTMIDI =.*$/, "PORTMIDI = -I#{portmidi}/include/ -lportmidi")
@@ -47,9 +42,21 @@ class Pygame < Formula
     # Manually append what is the default for PyGame on the Mac
     system "cat Setup_Darwin.in >> Setup"
 
+    # Remove ogg from test if no OGG Vorbis support
+    unless Formula["libvorbis"].installed?
+      inreplace "test/mixer_music_test.py", "formats = ['ogg', 'wav']", "formats = ['wav']"
+    end
+
     Language::Python.each_python(build) do |python, version|
       ENV.prepend_create_path "PYTHONPATH", lib+"python#{version}/site-packages"
       system python, *Language::Python.setup_install_args(prefix)
+    end
+  end
+
+  test do
+    Language::Python.each_python(build) do |python, version|
+      ENV.prepend_create_path "PYTHONPATH", lib+"python#{version}/site-packages"
+      system python, "-m", "pygame.tests.__main__", "--time_out", "300", "-p", python
     end
   end
 end
