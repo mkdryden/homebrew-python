@@ -5,6 +5,13 @@ class Pygame < Formula
   sha256 "0d8d1b04e345806e1fc0dc1b062bbb7c0841f8f120edcb1b9fe78257293b17ff"
   head "https://bitbucket.org/pygame/pygame", :using => :hg
 
+  bottle do
+    cellar :any
+    sha256 "45ffc0384958cb5fb75028ed07721faf0c902d762d71e4323163a640f5e237d3" => :sierra
+    sha256 "df9b103ebd806b6e1c3e789046b6633c10eea23fde66a12fff305c660c6dd828" => :el_capitan
+    sha256 "1170b4bbb66240a133c92cad9ebf33e71ae87759154ca3041637c9e62d046595" => :yosemite
+  end
+
   option "without-python", "Build without python2 support"
   depends_on :python3 => :optional
   depends_on "sdl"
