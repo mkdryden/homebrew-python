@@ -6,9 +6,9 @@ class Numba < Formula
   revision 1
 
   bottle do
-    sha256 "e3635a687c3ed18eb5a27eac6bad35606ffac9d15b3bf08a720b842002b28c23" => :el_capitan
-    sha256 "5a794987a2c29468df03c2de9190b3de2e8455b93613ff58bbbf80ccfdbdf94a" => :yosemite
-    sha256 "c6238cae92bb8065273b040709fe702b8a2f3474c26fef8fa830c6545b632a43" => :mavericks
+    sha256 "34dded7bc8cf3fc13e97dcd6cb7be2daa955d157786410856bb480044c9d989a" => :sierra
+    sha256 "9382542b86ca3b5ce5a25ccb56379b2801f48a9ecf00243614f02d6b652d4871" => :el_capitan
+    sha256 "e4493fa238e04610368ba92a7b01e38371543a60596646da0dff679823095b09" => :yosemite
   end
 
   option "without-python", "Build without python2 support"
