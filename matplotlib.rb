@@ -1,6 +1,6 @@
 class DvipngRequirement < Requirement
   fatal false
-  cask "matctex"
+  cask "mactex"
 
   satisfy { which("dvipng") }
 
