@@ -6,9 +6,9 @@ class Numpy < Formula
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "653564e102fc276673a648db00a8409de58c2d405e3f009fe2fca48341dc546b" => :sierra
-    sha256 "adcc6904722700f4540e6d3346d06ad183dbb44103840cbf0ba2907e331878e2" => :el_capitan
-    sha256 "5f4a1549cf8d89437dabce3bcc7f2f7e2ea7ab22a328824d0c9efe4427a52c31" => :yosemite
+    sha256 "be1bc09237667c40f21014c21c3eb9fe567481d4f9f19857978875f9a87064da" => :sierra
+    sha256 "1d73f1e19cd98a965d5166df33a87f7777be277b08d79dabf0b87f02d668c22a" => :el_capitan
+    sha256 "ba5d2cc2b729f54bebfb8cf4d62cc5f71d76702d299a06c7332ded8046aad20b" => :yosemite
   end
 
   head do
